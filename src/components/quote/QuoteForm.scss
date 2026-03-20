@@ -1,0 +1,116 @@
+@use '../../styles/variables' as *;
+
+.quote-form-wrapper {
+  width: 100%;
+  max-width: 640px;
+  padding: 2.5rem 2.5rem 2rem;
+  animation: fadeUp 0.6s ease both;
+}
+
+.quote-form__header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 2rem;
+}
+
+.quote-form__title {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.quote-form__subtitle {
+  font-size: 0.9rem;
+  color: rgba(#F0F4F8, 0.55);
+  line-height: 1.6;
+}
+
+.quote-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.quote-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+
+  &--thirds { grid-template-columns: 2fr 1fr 1fr; }
+}
+
+.quote-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  &--full { grid-column: 1 / -1; }
+}
+
+.quote-form__label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgba(#F0F4F8, 0.6);
+  letter-spacing: 0.01em;
+}
+
+.quote-form__input,
+.quote-form__select {
+  background: rgba(#FFFFFF, 0.05);
+  border: 1px solid rgba(#FFFFFF, 0.1);
+  border-radius: $radius;
+  padding: 0.65rem 0.9rem;
+  font-size: 0.9rem;
+  color: $text-light;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+
+  &::placeholder { color: rgba(#F0F4F8, 0.25); }
+
+  &:focus {
+    border-color: $accent;
+    background: rgba(#00B4D8, 0.06);
+    box-shadow: 0 0 0 3px rgba(#00B4D8, 0.12);
+  }
+}
+
+.quote-form__select {
+  appearance: none;
+  padding-right: 2.5rem;
+  cursor: pointer;
+
+  option { background: $bg-footer; }
+}
+
+.quote-form__select-wrapper {
+  position: relative;
+}
+
+.quote-form__select-icon {
+  position: absolute;
+  right: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(#F0F4F8, 0.4);
+  pointer-events: none;
+}
+
+.quote-form__submit {
+  margin-top: 0.5rem;
+  width: 100%;
+
+  &--loading { background: rgba($primary, 0.7); }
+}
+
+@media (max-width: 600px) {
+  .quote-form-wrapper { padding: 2rem 1.25rem 1.75rem; }
+
+  .quote-form__row {
+    grid-template-columns: 1fr;
+    &--thirds { grid-template-columns: 1fr 1fr; }
+  }
+}

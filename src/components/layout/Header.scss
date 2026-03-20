@@ -1,0 +1,59 @@
+@use '../../styles/variables' as *;
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(#1A1A2E, 0.75);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(#FFFFFF, 0.07);
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 8vw;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  &__brand-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: $text-light;
+    letter-spacing: -0.01em;
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  &__nav-link {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: rgba(#F0F4F8, 0.6);
+    transition: color 0.2s ease;
+
+    &:hover { color: $text-light; }
+  }
+
+  &__nav-cta {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: $text-light;
+    background: $primary;
+    padding: 0.5rem 1.1rem;
+    border-radius: $radius;
+    transition: background 0.2s ease, transform 0.15s ease;
+
+    &:hover {
+      background: $accent;
+      transform: translateY(-1px);
+    }
+  }
+}
