@@ -1,0 +1,111 @@
+/* Trigger — the visible "button" that opens the dropdown */
+.trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 38px;
+    padding: 0 var(--space-3);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: var(--weight-regular);
+    color: var(--color-text-primary);
+    background-color: var(--color-surface-raised);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    outline: none;
+    transition: var(--transition-colors), var(--transition-shadow);
+    text-align: left;
+}
+
+.trigger:hover:not([data-disabled]) {
+    border-color: var(--color-text-muted);
+}
+
+.trigger:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px var(--color-accent-subtle);
+}
+
+.trigger[data-disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Placeholder text color */
+.trigger [data-placeholder] {
+    color: var(--color-text-muted);
+    opacity: 0.7;
+}
+
+.trigger.error {
+    border-color: var(--color-error);
+}
+
+.trigger.error:focus {
+    box-shadow: 0 0 0 3px var(--color-error-subtle);
+}
+
+.icon {
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+}
+
+/* Dropdown content panel */
+.content {
+    background-color: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    z-index: var(--z-dropdown);
+    /* Match the trigger width */
+    width: var(--radix-select-trigger-width);
+    max-height: var(--radix-select-content-available-height);
+    animation: fadeIn var(--duration-fast) var(--ease-enter);
+}
+
+.viewport {
+    padding: var(--space-1);
+}
+
+/* Individual option item */
+.item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-2) var(--space-3);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text-primary);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    outline: none;
+    transition: var(--transition-colors);
+    user-select: none;
+}
+
+.item[data-highlighted] {
+    background-color: var(--color-accent-subtle);
+    color: var(--color-accent);
+}
+
+.item[data-disabled] {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.item[data-state='checked'] {
+    color: var(--color-accent);
+    font-weight: var(--weight-medium);
+}
+
+.itemIndicator {
+    color: var(--color-accent);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

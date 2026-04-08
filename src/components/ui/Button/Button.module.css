@@ -88,3 +88,37 @@
 .full {
   width: 100%;
 }
+
+/* Loading state */
+.loading {
+  position: relative;
+  color: transparent;
+  pointer-events: none;
+}
+
+.spinner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 2px solid transparent;
+  border-top-color: currentColor;
+  border-radius: var(--radius-full);
+  animation: spin 600ms linear infinite;
+}
+
+.primary.loading .spinner {
+  border-top-color: var(--color-text-on-accent);
+}
+
+.secondary.loading .spinner,
+.ghost.loading .spinner {
+  border-top-color: var(--color-text-primary);
+}
+
+.danger.loading .spinner {
+  border-top-color: var(--color-error);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

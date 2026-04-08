@@ -7,6 +7,7 @@ export default function Button({
     size = 'md',
     fullWidth = false,
     disabled = false,
+    loading = false,
     type = 'button',
     onClick,
     className,
@@ -22,10 +23,12 @@ export default function Button({
                 styles[variant],
                 size !== 'md' && styles[size],
                 fullWidth && styles.full,
+                loading && styles.loading,
                 className
             )}
             {...rest}
         >
+            {loading && <span className={styles.spinner} />}
             {children}
         </button>
     )
