@@ -1,0 +1,181 @@
+:root {
+
+      /* -------------------------
+      Color Palette
+    ------------------------- */
+
+    /* Surfaces — warm stone scale */
+    --color-bg:             #FAFAF9;  /* stone-50, barely-warm white */
+    --color-surface:        #F5F5F4;  /* stone-100, cards and panels */
+    --color-surface-raised: #FFFFFF;  /* pure white, modals and elevated cards */
+    --color-border:         #E7E5E4;  /* stone-200, light separator */
+    --color-border-strong:  #D6D3D1;  /* stone-300, inputs, dividers */
+
+    /* Text */
+    --color-text-primary:   #1C1917;  /* stone-900, near-black with warmth */
+    --color-text-muted:     #78716C;  /* stone-500, passes AA on surface colors */
+    --color-text-on-accent: #FFFFFF;  /* white text on colored backgrounds */
+
+    /* Accent */
+    --color-accent:         #2563EB;  /* blue-600, primary interactive color */
+    --color-accent-hover:   #1D4ED8;  /* blue-700, hover state */
+    --color-accent-subtle:  #EFF6FF;  /* blue-50, selected rows, active nav bg */
+
+    /* Semantic */
+    --color-success:        #16A34A;  /* green-600 */
+    --color-success-subtle: #F0FDF4;  /* green-50, badge backgrounds */
+    --color-warning:        #D97706;  /* amber-600, clearly distinct from accent */
+    --color-warning-subtle: #FFFBEB;  /* amber-50 */
+    --color-error:          #DC2626;  /* red-600 */
+    --color-error-subtle:   #FEF2F2;  /* red-50 */
+    --color-info:           #0891B2;  /* cyan-600 */
+    --color-info-subtle:    #ECFEFF;  /* cyan-50 */
+
+
+    /* -------------------------
+       Spacing  (4px base grid)
+    ------------------------- */
+
+    --space-1:  4px;
+    --space-2:  8px;
+    --space-3:  12px;
+    --space-4:  16px;
+    --space-5:  20px;
+    --space-6:  24px;
+    --space-8:  32px;
+    --space-10: 40px;
+    --space-12: 48px;
+    --space-16: 64px;
+    --space-20: 80px;
+    --space-24: 96px;
+
+
+    /* -------------------------
+       Typography
+       Import in base.css:
+         Plus Jakarta Sans (600, 700, 800) — headings
+         DM Sans (400, 500)               — body
+    ------------------------- */
+
+    --font-heading: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-body:    'DM Sans', system-ui, sans-serif;
+
+    /* Size scale (rem — respects user browser font size preferences) */
+    --text-xs:   0.6875rem;  /* 11px — timestamps, fine print        */
+    --text-sm:   0.8125rem;  /* 13px — table labels, captions        */
+    --text-base: 0.9375rem;  /* 15px — body copy, form fields        */
+    --text-md:   1rem;       /* 16px — slightly emphasized body      */
+    --text-lg:   1.125rem;   /* 18px — card titles, section leads    */
+    --text-xl:   1.25rem;    /* 20px — page subtitles                */
+    --text-2xl:  1.5rem;     /* 24px — page titles                   */
+    --text-3xl:  1.875rem;   /* 30px — dashboard hero numbers        */
+    --text-4xl:  2.25rem;    /* 36px — landing page section heads    */
+    --text-5xl:  3rem;       /* 48px — landing page hero             */
+
+    /* Weight */
+    --weight-regular:   400;
+    --weight-medium:    500;
+    --weight-semibold:  600;
+    --weight-bold:      700;
+    --weight-extrabold: 800;
+
+    /* Line height */
+    --leading-tight:   1.2;   /* large headings                      */
+    --leading-snug:    1.35;  /* subheadings, card titles            */
+    --leading-base:    1.5;   /* body copy                           */
+    --leading-relaxed: 1.65;  /* long-form reading                   */
+
+    /* Letter spacing */
+    --tracking-tight:  -0.02em;  /* large display headings           */
+    --tracking-normal:  0em;
+    --tracking-wide:    0.02em;  /* small labels                     */
+    --tracking-wider:   0.06em;  /* uppercase micro-labels           */
+
+
+    /* -------------------------
+       Border radius
+    ------------------------- */
+
+    --radius-sm:   4px;      /* badges, tags, small chips            */
+    --radius-md:   6px;      /* buttons, inputs, selects             */
+    --radius-lg:   10px;     /* cards, panels                        */
+    --radius-xl:   16px;     /* modals, large cards                  */
+    --radius-full: 9999px;   /* pill shapes                          */
+
+
+    /* -------------------------
+       Shadows
+       Warm-tinted so they don't look grey on cream backgrounds
+    ------------------------- */
+
+    --shadow-sm: 0 1px 3px rgba(28, 25, 23, 0.08),
+                 0 1px 2px rgba(28, 25, 23, 0.04);
+
+    --shadow-md: 0 4px 12px rgba(28, 25, 23, 0.10),
+                 0 2px 4px  rgba(28, 25, 23, 0.06);
+
+    --shadow-lg: 0 16px 40px rgba(28, 25, 23, 0.12),
+                 0 4px  12px rgba(28, 25, 23, 0.08);
+
+    --shadow-xl: 0 24px 64px rgba(28, 25, 23, 0.14),
+                 0 8px  24px rgba(28, 25, 23, 0.10);
+
+
+    /* -------------------------
+       Breakpoints
+       NOTE: custom properties cannot be used inside @media queries.
+       These are here as documentation. Use the literal px values
+       when writing media queries in component stylesheets.
+         sm:  640px   — large phones
+         md:  768px   — tablets, bottom nav threshold
+         lg:  1024px  — small laptops, sidebar threshold
+         xl:  1280px  — desktops
+         2xl: 1536px  — large desktops
+    ------------------------- */
+
+    --bp-sm:  640px;
+    --bp-md:  768px;
+    --bp-lg:  1024px;
+    --bp-xl:  1280px;
+    --bp-2xl: 1536px;
+
+
+    /* -------------------------
+       Z-index
+    ------------------------- */
+
+    --z-base:     0;
+    --z-raised:   10;   /* hover-elevated cards                      */
+    --z-dropdown: 100;  /* dropdowns, popovers, tooltips             */
+    --z-sticky:   200;  /* sticky table headers                      */
+    --z-fixed:    300;  /* sidebar, top bar, bottom nav              */
+    --z-overlay:  400;  /* modal backdrop                            */
+    --z-modal:    500;  /* modals, drawers                           */
+    --z-toast:    600;  /* toast notifications (always on top)       */
+
+
+    /* -------------------------
+       Transitions
+    ------------------------- */
+
+    --duration-fast:   100ms;
+    --duration-base:   150ms;
+    --duration-slow:   250ms;
+    --duration-slower: 400ms;
+
+    /* Easing — named for intent */
+    --ease-default: cubic-bezier(0.4, 0, 0.2, 1);     /* general UI movement     */
+    --ease-enter:   cubic-bezier(0, 0, 0.2, 1);        /* elements entering view  */
+    --ease-exit:    cubic-bezier(0.4, 0, 1, 1);         /* elements leaving view   */
+    --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1); /* slight overshoot —
+                                                           buttons, badges         */
+
+    /* Composed transitions — use these in component stylesheets */
+    --transition-colors:    color            var(--duration-base) var(--ease-default),
+                            background-color var(--duration-base) var(--ease-default),
+                            border-color     var(--duration-base) var(--ease-default);
+    --transition-shadow:    box-shadow  var(--duration-base) var(--ease-default);
+    --transition-transform: transform   var(--duration-base) var(--ease-default);
+    --transition-opacity:   opacity     var(--duration-base) var(--ease-default);
+
+}
