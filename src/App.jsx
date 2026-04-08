@@ -3,6 +3,7 @@ import LandingPage from "./pages/LandingPage";
 import FormPage from "./pages/FormPage";
 import QuotePage from "./pages/QuotePage";
 import MoreInfoPage from "./pages/MoreInfoPage";
+import ComponentGallery from "./pages/ComponentGallery";
 
 export default function App(){
     return (
@@ -12,6 +13,7 @@ export default function App(){
                 <Route path="/get-a-quote" element={<FormPage />} />
                 <Route path="/quote-result" element={<QuotePage />} />
                 <Route path="/need-more-info" element={<MoreInfoPage />} />
+                <Route path="/dev/components" element={<ComponentGallery />} />
             </Routes>
         </BrowserRouter>
     )
