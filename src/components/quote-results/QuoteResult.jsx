@@ -1,4 +1,4 @@
-import "./QuoteResult.scss";
+
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import checkStreetView from "../../util/checkStreetView";

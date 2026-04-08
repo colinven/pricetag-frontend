@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./QuoteForm.scss";
+
 
 const WASH_INTERVALS = [
   "Never / First time",

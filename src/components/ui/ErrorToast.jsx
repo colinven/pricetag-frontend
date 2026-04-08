@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./ErrorToast.scss";
+
 
 export default function ErrorToast({ message, onDismiss }) {
   const [visible, setVisible] = useState(false);

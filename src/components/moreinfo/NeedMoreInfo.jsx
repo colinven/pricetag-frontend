@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import "./NeedMoreInfo.scss";
+
 
 const STORIES_OPTIONS = ["1", "2", "3"];
 

@@ -1,2 +1,6 @@
 node_modules/
 .env
+/context/
+/context/*
+CLAUDE.md
+PROGRESS.md
