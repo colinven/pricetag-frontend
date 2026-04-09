@@ -10,7 +10,7 @@ export default function App(){
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<LandingPage />} />
-                <Route path="/get-a-quote" element={<FormPage />} />
+                {/*<Route path="/get-a-quote" element={<FormPage />} />*/}
                 <Route path="/quote-result" element={<QuotePage />} />
                 <Route path="/need-more-info" element={<MoreInfoPage />} />
                 <Route path="/dev/components" element={<ComponentGallery />} />
