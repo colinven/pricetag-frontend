@@ -1,12 +1,7 @@
-import Header from "../components/layout/Header";
-import Hero from "../components/landing/Hero";
-
-function LandingPage() {
+export default function LandingPage() {
     return (
-        <>
-            <Header />
-            <Hero />
-        </>
-    )
+        <div>
+            <h1>Landing Page</h1>
+        </div>
+    );
 }
-export default LandingPage;
