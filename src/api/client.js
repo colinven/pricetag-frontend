@@ -1,8 +1,15 @@
 import axios from "axios";
 
-const createClient = (baseUrl) => {
+class APIError extends Error {
+    constructor({statusCode, message}) {
+        super(message);
+        this.statusCode = statusCode
+    }
+}
+
+const createClient = (baseURL) => {
     const client = axios.create({
-        baseUrl,
+        baseURL,
         headers: { "Content-Type": "application/json" },
         withCredentials: true
     });
@@ -10,6 +17,12 @@ const createClient = (baseUrl) => {
     client.interceptors.response.use(
         (response) => response.data,
         (error) => {
+            if (!error.response) {
+                return Promise.reject(new APIError({
+                    statusCode: 0,
+                    message: "Network error - could not reach server"
+                }));
+            }
             const data = error.response?.data ?? {};
             return Promise.reject(new APIError(data));
         }
@@ -17,11 +30,6 @@ const createClient = (baseUrl) => {
     return client;
 }
 
-class APIError extends Error {
-    constructor({statusCode, message}) {
-        super(message);
-        this.statusCode = statusCode
-    }
-}
+
 
 export default createClient;

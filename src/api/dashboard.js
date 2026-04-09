@@ -5,7 +5,7 @@ const dashboardClient = createClient(`${import.meta.env.VITE_BASE_API_URL}/compa
 // see API_CONTRACT.md for request/response shapes
 
 const getDashboardSummary = () => dashboardClient.get("/summary");
-const getQuotesToReview = () => dashboardClient.get("quotes-to-review");
+const getQuotesToReview = () => dashboardClient.get("/quotes-to-review");
 const getAllQuotesPaginated = (page, size, sortBy, direction) => dashboardClient.get("/quotes", 
     { params: {page, size, sortBy, direction} }
 );
