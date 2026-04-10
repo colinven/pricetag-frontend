@@ -1,0 +1,210 @@
+/* ─── Page layout ────────────────────────── */
+
+.page {
+    min-height: 100vh;
+    background-color: var(--color-bg);
+    padding: var(--space-8) var(--space-4);
+}
+
+.layout {
+    max-width: 960px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: var(--space-8);
+    align-items: start;
+}
+
+/* ─── Info blurb (left column) ───────────── */
+
+.infoBlurb {
+    position: sticky;
+    top: calc(50vh - 200px);
+}
+
+.companyInfo {
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.companyName {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-bold);
+    color: var(--color-text-primary);
+    margin: 0 0 var(--space-2);
+}
+
+.companyDetails {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.companyDetail {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin: 0;
+}
+
+.infoHeading {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-bold);
+    color: var(--color-text-primary);
+    margin: 0 0 var(--space-5);
+}
+
+.steps {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+}
+
+.step {
+    display: flex;
+    gap: var(--space-3);
+    align-items: flex-start;
+}
+
+.stepNumber {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-accent);
+    color: var(--color-text-on-accent);
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stepText {
+    font-size: var(--text-sm);
+    line-height: var(--leading-base);
+    color: var(--color-text-muted);
+    margin: 0;
+    padding-top: 3px;
+}
+
+/* ─── How it works dropdown ──────────────── */
+
+.disclosure {
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--space-4);
+}
+
+.disclosureToggle {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-accent);
+    transition: var(--transition-colors);
+}
+
+.disclosureToggle:hover {
+    color: var(--color-accent-hover);
+}
+
+.disclosureArrow {
+    display: inline-block;
+    font-size: var(--text-xs);
+    transition: transform var(--duration-base) var(--ease-default);
+}
+
+.disclosureArrowOpen {
+    transform: rotate(90deg);
+}
+
+.disclosureContent {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows var(--duration-slow) var(--ease-default);
+}
+
+.disclosureContentOpen {
+    grid-template-rows: 1fr;
+}
+
+.disclosureInner {
+    overflow: hidden;
+}
+
+.disclosureBody {
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-muted);
+    margin: 0;
+    padding-top: var(--space-3);
+}
+
+/* ─── Form card (right column) ───────────── */
+
+.card {
+    width: 100%;
+}
+
+.heading {
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-bold);
+    color: var(--color-text-primary);
+    text-align: center;
+    margin: 0;
+}
+
+.sectionHeading {
+    font-family: var(--font-heading);
+    font-size: var(--text-base);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text-muted);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.formError {
+    font-size: var(--text-sm);
+    color: var(--color-error);
+    text-align: center;
+    margin: 0;
+}
+
+.footer {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    text-align: center;
+}
+
+.nameRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+}
+
+/* ─── Responsive ─────────────────────────── */
+
+@media (max-width: 768px) {
+    .layout {
+        grid-template-columns: 1fr;
+        max-width: 520px;
+    }
+
+    .infoBlurb {
+        position: static;
+    }
+}
