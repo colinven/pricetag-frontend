@@ -23,6 +23,12 @@
     border-width: 3px;
 }
 
+.xl {
+    width: 75px;
+    height: 75px;
+    border-width: 6px;
+}
+
 @keyframes spin {
     to { transform: rotate(360deg); }
 }

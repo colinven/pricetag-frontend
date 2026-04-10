@@ -42,7 +42,6 @@ export default function AuthProvider({ children }) {
         () => ({ user, isLoading, isAuthenticated, login, logout, register }),
         [user, isLoading, login, register, logout]
     );
-    console.log('auth state:', { user, isLoading })
     return (
         <AuthContext.Provider value={value}>
             {children}
