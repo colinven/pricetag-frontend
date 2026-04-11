@@ -40,23 +40,48 @@ export default function QuoteFormPage() {
         { value: "Not sure", label: "Not sure" },
     ]
 
-    const validate = () => {
+    const validateField = (name, value) => {
+        if (!value.trim()) return "This field is required";
+        switch (name) {
+            case "zip":
+                if (!/^\d{5}$/.test(value)) return "Zip must be 5 digits";
+                break;
+            case "state":
+                if (!/^[A-Za-z]{2}$/.test(value)) return "State must be abbreviated";
+                break;
+            case "street":
+                if (!/^\d+\s+\S+/.test(value)) return "Please enter a valid street name";
+                break;
+            case "phone":
+                if (!/^\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/.test(value)) return "Please enter a valid phone number";
+                break;
+        }
+        return null;
+    };
+
+    const validateAll = () => {
         const newErrors = {};
         for (let field in formData) {
-            if (!formData[field].trim()) newErrors[field] = "This field is required";
+            const error = validateField(field, formData[field]);
+            if (error) newErrors[field] = error;
         }
-        if (!/^\d{5}$/.test(formData.zip)) newErrors.zip = "Zip must be 5 digits";
-        if (!/^[A-Za-z]{2}$/.test(formData.state)) newErrors.state = "State must be abbreviated";
-        if (!/^\d+\s+\S+/.test(formData.street)) newErrors.street = "Please enter a valid street name";
-        if (!/^\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/.test(formData.phone)) newErrors.phone = "Please enter a valid phone number."
-        return newErrors
-    }
+        return newErrors;
+    };
+
+    const handleBlur = (e) => {
+        const { name, value } = e.target;
+        const error = validateField(name, value);
+        setErrors((prev) => {
+            if (error) return { ...prev, [name]: error };
+            const { [name]: _, ...rest } = prev;
+            return rest;
+        });
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setErrors({});
         setFormError("");
-        const newErrors = validate();
+        const newErrors = validateAll();
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors);
             return;
@@ -177,31 +202,31 @@ export default function QuoteFormPage() {
                                 <h3 className={styles.sectionHeading}>Contact Info</h3>
                                 <div className={styles.nameRow}>
                                     <FormField label="First Name" error={errors.firstName} required>
-                                        <Input name="firstName" value={formData.firstName} onChange={handleChange} placeholder="Jill" />
+                                        <Input name="firstName" value={formData.firstName} onChange={handleChange} onBlur={handleBlur} placeholder="Jill" />
                                     </FormField>
                                     <FormField label="Last Name" error={errors.lastName} required>
-                                        <Input name="lastName" value={formData.lastName} onChange={handleChange} placeholder="Smith" />
+                                        <Input name="lastName" value={formData.lastName} onChange={handleChange} onBlur={handleBlur} placeholder="Smith" />
                                     </FormField>
                                 </div>
                                 <FormField label="Phone" error={errors.phone} required>
-                                    <Input name="phone" value={formData.phone} onChange={handleChange} placeholder="(999) 999-9999" />
+                                    <Input name="phone" value={formData.phone} onChange={handleChange} onBlur={handleBlur} placeholder="(999) 999-9999" />
                                 </FormField>
                                 <FormField label="Email" error={errors.email} required>
-                                    <Input name="email" value={formData.email} type="email" onChange={handleChange} placeholder="example@email.com" />
+                                    <Input name="email" value={formData.email} type="email" onChange={handleChange} onBlur={handleBlur} placeholder="example@email.com" />
                                 </FormField>
                                 <h3 className={styles.sectionHeading}>Address</h3>
                                 <FormField label="Street" error={errors.street} required>
-                                    <Input name="street" value={formData.street} onChange={handleChange} placeholder="123 Oak Street" />
+                                    <Input name="street" value={formData.street} onChange={handleChange} onBlur={handleBlur} placeholder="123 Oak Street" />
                                 </FormField>
                                 <FormField label="City" error={errors.city} required>
-                                    <Input name="city" value={formData.city} onChange={handleChange} placeholder="San Jose" />
+                                    <Input name="city" value={formData.city} onChange={handleChange} onBlur={handleBlur} placeholder="San Jose" />
                                 </FormField>
                                 <div className={styles.nameRow}>
                                     <FormField label="State" error={errors.state} required>
-                                        <Input name="state" value={formData.state} onChange={handleChange} maxLength={2} placeholder="CA" />
+                                        <Input name="state" value={formData.state} onChange={handleChange} onBlur={handleBlur} maxLength={2} placeholder="CA" />
                                     </FormField>
                                     <FormField label="Zip" error={errors.zip} required>
-                                        <Input name="zip" value={formData.zip} onChange={handleChange} maxLength={5} placeholder="95101" />
+                                        <Input name="zip" value={formData.zip} onChange={handleChange} onBlur={handleBlur} maxLength={5} placeholder="95101" />
                                     </FormField>
                                 </div>
                                 <h3 className={styles.sectionHeading}>Last Wash</h3>
