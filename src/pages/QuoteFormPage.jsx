@@ -105,16 +105,17 @@ export default function QuoteFormPage() {
                             state: formData.state,
                             zip: formData.zip
                         },
-                        lastWash: formData.lastWash,
-                        companyName,
-                        companyPhone,
-                        companyEmail
+                        lastWash: formData.lastWash
                     }
                 });
                 return;
             }
             navigate("results", {
-            state: { ...response, companyName, companyEmail, companyPhone }
+            state: { 
+                data: response.lookupResult.data,
+                price: response.price,
+                address: response.address
+            }
             });
         })
         .catch((error) => {

@@ -20,7 +20,8 @@
     outline-offset: 2px;
 }
 
-.btn:disabled {
+.btn:disabled,
+.disabledLink {
   opacity: 0.45;
   cursor: not-allowed;
   pointer-events: none;
