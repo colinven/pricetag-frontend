@@ -31,11 +31,41 @@ const getStreetView = (addressString) => {
         responseType: "blob"
     })
     .then((response) => {
-        return URL.createObjectURL(response.data);
-    })
-    .catch((error) => {
-        console.error("Failed to fetch GMAPS image:", error);
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(response.data);
+        });
     });
 }
 
-export { hasStreetView, getStreetView };
+const getCachedStreetView = (addressString) => {
+    const cachedImage = localStorage.getItem(`sv:${normalizeKey(addressString)}`);
+    if (cachedImage) {
+        return cachedImage === "noImagery" 
+        ? Promise.resolve(null)
+        : Promise.resolve(cachedImage);
+    }
+    return hasStreetView(addressString)
+    .then((exists) => {
+        if (!exists){
+            return "noImagery";
+        }
+        return getStreetView(addressString);
+    })
+    .then((url) => {
+        localStorage.setItem(`sv:${normalizeKey(addressString)}`, url ?? "noImagery");
+        return url === "noImagery" ? null : url;
+    })
+    .catch((error) => {
+        console.error("Failed to fetch GMAPS image:", error);
+        return null;
+    });
+}
+
+const normalizeKey = (addressString) => {
+    return addressString.replace(/[.,]+$/, '').trim().toLowerCase();
+}
+
+export { hasStreetView, getStreetView, getCachedStreetView };

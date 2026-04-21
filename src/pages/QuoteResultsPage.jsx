@@ -1,6 +1,6 @@
 import { useLocation, Navigate ,useOutletContext, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { hasStreetView, getStreetView } from "../util/googleMapsUtils";
+import { hasStreetView, getStreetView, getCachedStreetView } from "../util/googleMapsUtils";
 import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
 import styles from "./QuoteResultsPage.module.css";
@@ -31,20 +31,12 @@ export default function QuoteResultsPage() {
             setStreetViewUrl(placeholderImage);
         }, 5000);
 
-        hasStreetView(address).then((exists) => {
-            if (settled) return;
-            if (!exists) {
-                settled = true;
-                clearTimeout(timeoutId);
-                setStreetViewUrl(placeholderImage);
-                return;
-            }
-            return getStreetView(address).then((url) => {
-                if (settled) return;
-                settled = true;
-                clearTimeout(timeoutId);
-                setStreetViewUrl(url ?? placeholderImage);
-            });
+        getCachedStreetView(address)
+        .then((url) => {
+            settled = true;
+            clearTimeout(timeoutId);
+            setStreetViewUrl(url ?? placeholderImage);
+            return;
         });
 
         return () => {
