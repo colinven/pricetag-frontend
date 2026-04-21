@@ -1,0 +1,49 @@
+/* Loading state — same inline style the old layout used, lifted out */
+.loading {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--space-8);
+}
+
+/* Shell — grid container owns the viewport height so only content scrolls */
+.shell {
+    height: 100vh;
+    display: grid;
+    overflow: hidden;
+    background-color: var(--color-bg);
+}
+
+.content {
+    grid-area: content;
+    overflow-y: auto;
+    padding: var(--space-6);
+}
+
+/* Desktop layout (≥ 1024px) */
+@media (min-width: 1024px) {
+    .shell {
+        grid-template-columns: 240px 1fr;
+        grid-template-rows: 56px 1fr;
+        grid-template-areas:
+            "sidebar topbar"
+            "sidebar content";
+    }
+}
+
+/* Mobile layout (< 1024px) */
+@media (max-width: 1023px) {
+    .shell {
+        grid-template-columns: 1fr;
+        grid-template-rows: 52px 1fr 64px;
+        grid-template-areas:
+            "mobiletopbar"
+            "content"
+            "bottomnav";
+    }
+
+    .content {
+        padding: var(--space-4);
+    }
+}
