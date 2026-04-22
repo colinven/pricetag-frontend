@@ -10,6 +10,8 @@ import Badge from '../components/ui/Badge';
 import Card from '../components/ui/Card';
 import Stack from '../components/ui/Stack';
 import Divider from '../components/ui/Divider';
+import StatCard from '../components/ui/StatCard';
+import QuoteStatusBadge from '../components/ui/QuoteStatusBadge';
 
 const LAST_WASH_OPTIONS = [
     { value: 'never', label: 'Never' },
@@ -209,7 +211,26 @@ export default function ComponentGallery() {
                     />
                 </FormField>
             </section>
-
+            {/* ── Stat Cards ── */}
+            <section style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <h2>Stat Cards</h2>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' }}>
+                    <StatCard label="Quotes to Review" value="3" description="Awaiting your review" />
+                    <StatCard label="Total Quotes" value="1,208" description="All time" />
+                    <StatCard label="Last 30 Days" value="42" />
+                    <StatCard label="Conversion Rate" value="65%" description="Accepted / finalized" />
+                </div>
+            </section>
+            {/* ── Quote Status Badges ── */}
+            <section style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <h2>Quote Status Badges</h2>
+                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                    <QuoteStatusBadge status="PENDING" />
+                    <QuoteStatusBadge status="REVIEWED" />
+                    <QuoteStatusBadge status="ACCEPTED" />
+                    <QuoteStatusBadge status="DECLINED" />
+                </div>
+            </section>
         </div>
     );
 }
