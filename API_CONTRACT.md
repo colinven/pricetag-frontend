@@ -49,8 +49,13 @@ Base URL: http://localhost:8080/api/v1
 ```
 
 ```json
-// Response — 200 OK
-{ "message": "User registered successfully" }
+// Response — 200 OK — UserResponse
+{
+  "firstName": "string",
+  "lastName": "string",
+  "email": "string",
+  "role": "OWNER"          // OWNER | MEMBER
+}
 ```
 
 ```
@@ -66,8 +71,13 @@ Set-Cookie: auth_token=<jwt>; HttpOnly; Secure; Path=/; SameSite=Strict; Max-Age
 ```
 
 ```json
-// Response — 200 OK
-{ "message": "User logged in successfully" }
+// Response — 200 OK — UserResponse
+{
+  "firstName": "string",
+  "lastName": "string",
+  "email": "string",
+  "role": "OWNER"          // OWNER | MEMBER
+}
 ```
 
 ```
