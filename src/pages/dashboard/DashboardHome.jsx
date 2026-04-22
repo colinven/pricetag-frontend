@@ -106,7 +106,7 @@ export default function DashboardHome() {
                             description="Recent requests" 
                         />
                         <StatCard 
-                            label="Coversion Rate" 
+                            label="Conversion Rate"
                             value={`${Math.round(summary.data.conversionRate * 100)}%`}
                             description="Accepted / Finalized" 
                         />
