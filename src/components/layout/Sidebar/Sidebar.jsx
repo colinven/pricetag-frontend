@@ -13,7 +13,6 @@ export default function Sidebar() {
         <aside className={styles.sidebar} aria-label="Primary navigation">
             <Link to="/dashboard" className={styles.brand}>
                 <img src={logo} alt="" className={styles.brandLogo} />
-                <span className={styles.brandWordmark}>PriceTag</span>
             </Link>
 
             <nav className={styles.nav}>

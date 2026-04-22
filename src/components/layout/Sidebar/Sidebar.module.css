@@ -18,17 +18,9 @@
 }
 
 .brandLogo {
-    width: 28px;
-    height: 28px;
+    width: 120px;
+    
     object-fit: contain;
-}
-
-.brandWordmark {
-    font-family: var(--font-heading);
-    font-size: var(--text-lg);
-    font-weight: var(--weight-bold);
-    color: var(--color-text-primary);
-    letter-spacing: var(--tracking-tight);
 }
 
 .nav {
