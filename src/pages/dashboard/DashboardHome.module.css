@@ -63,10 +63,10 @@
 /* Desktop row: 4-column tabular grid */
 .row {
     display: grid;
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 2fr) minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 2.75fr) minmax(0, .7fr) minmax(0, .7fr);
     gap: var(--space-4);
     align-items: center;
-    padding: var(--space-4) var(--space-5);
+    padding: var(--space-4) var(--space-6);
     border-bottom: 1px solid var(--color-border);
     text-decoration: none;
     color: inherit;
@@ -118,6 +118,7 @@
     font-size: var(--text-sm);
     color: var(--color-text-muted);
     white-space: nowrap;
+    text-align: right;
 }
 
 /* Mobile row: stacked card layout */
@@ -125,9 +126,9 @@
     .row {
         grid-template-columns: 1fr auto;
         grid-template-areas:
-            "name  name"
+            "name  date"
             "addr  addr"
-            "price date";
+            "price price";
         gap: var(--space-1) var(--space-3);
     }
     .rowName    { grid-area: name; }
