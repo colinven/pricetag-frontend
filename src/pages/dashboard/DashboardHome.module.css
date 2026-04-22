@@ -126,9 +126,9 @@
     .row {
         grid-template-columns: 1fr auto;
         grid-template-areas:
-            "name  date"
+            "name  name"
             "addr  addr"
-            "price price";
+            "price date";
         gap: var(--space-1) var(--space-3);
     }
     .rowName    { grid-area: name; }

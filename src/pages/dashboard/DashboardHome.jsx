@@ -153,8 +153,8 @@ function PendingQuoteRow({ quote }) {
     return (
         <Link to={`/dashboard/quotes/${quote.id}`} className={styles.row}>
             <span className={styles.rowName}>{customerFullName}</span>
-            <span className={styles.rowPrice}>{quote.propertyAddress}</span>
-            <span className={styles.rowAddress}>{priceRange}</span>
+            <span className={styles.rowAddress}>{quote.propertyAddress}</span>
+            <span className={styles.rowPrice}>{priceRange}</span>
             <span className={styles.rowDate}>{formatRelativeDate(quote.createdAt)}</span>
         </Link>
     );
