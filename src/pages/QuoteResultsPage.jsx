@@ -1,6 +1,6 @@
 import { useLocation, Navigate ,useOutletContext, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { hasStreetView, getStreetView, getCachedStreetView } from "../util/googleMapsUtils";
+import { getCachedStreetView } from "../util/googleMapsUtils";
 import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
 import styles from "./QuoteResultsPage.module.css";
@@ -21,6 +21,7 @@ export default function QuoteResultsPage() {
     const { data, price, address } = location.state ?? {};
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         if (!address) return;
         let settled = false;
 
@@ -98,7 +99,7 @@ export default function QuoteResultsPage() {
                                     <li><span>Square footage</span><span>{data.sqft.toLocaleString()}</span></li>
                                     <li><span>Stories</span><span>{data.stories}</span></li>
                                     <li><span>Year built</span><span>{data.year_built}</span></li>
-                                    <li><span>Garage</span><span>{data.garage}-car</span></li>
+                                    {data.garage && <li><span>Garage</span><span>{data.garage}-car</span></li>}
                                     <li><span>Type</span><span>{displayNames[data.property_type]}</span></li>
                                 </ul>
                             </section>
