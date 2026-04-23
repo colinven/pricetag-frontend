@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { getCachedStreetView } from "../util/googleMapsUtils";
 import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
+import StreetViewEmbed from "../components/ui/StreetViewEmbed/StreetViewEmbed";
 import styles from "./QuoteResultsPage.module.css";
 import placeholderImage from "../assets/no-streetview.png"
 
@@ -22,29 +23,7 @@ export default function QuoteResultsPage() {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        if (!address) return;
-        let settled = false;
-
-        // fallback if google maps is slow/unreachable - show placeholder after 5sec
-        const timeoutId = setTimeout(() => {
-            if (settled) return;
-            settled = true;
-            setStreetViewUrl(placeholderImage);
-        }, 5000);
-
-        getCachedStreetView(address)
-        .then((url) => {
-            settled = true;
-            clearTimeout(timeoutId);
-            setStreetViewUrl(url ?? placeholderImage);
-            return;
-        });
-
-        return () => {
-            settled = true;
-            clearTimeout(timeoutId);
-        };
-    }, [address]);
+    }, []);
 
     if (!location.state) return <Navigate to={`/quote/${slug}`} replace />;
 
@@ -54,17 +33,11 @@ export default function QuoteResultsPage() {
                 <SuccessHeader />
 
                 <Card className={styles.propertyCard}>
-                    <div className={styles.imageWrapper}>
-                        {streetViewUrl === null ? (
-                            <div className={styles.imageSkeleton} />
-                        ) : (
-                            <img
-                                src={streetViewUrl}
-                                alt={`Street view of ${address}`}
-                                className={styles.streetView}
-                            />
-                        )}          
-                    </div>
+                    <StreetViewEmbed
+                        address={address}
+                        alt={`Street view of ${address}`}
+                        className={styles.streetView}
+                    />
 
                     <div className={styles.propertyBody}>
                         <h1 className={styles.address}>{address}</h1>
