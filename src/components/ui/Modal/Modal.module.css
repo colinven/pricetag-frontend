@@ -1,0 +1,98 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(28, 25, 23, 0.5);
+    z-index: var(--z-overlay);
+    animation: fadeIn var(--duration-base) var(--ease-enter);
+}
+
+.content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% - var(--space-8));
+    max-width: 480px;
+    background-color: var(--color-surface-raised);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+    padding: var(--space-6) var(--space-6) var(--space-5);
+    z-index: var(--z-modal);
+    animation: scaleIn var(--duration-base) var(--ease-enter);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.content:focus {
+    outline: none;
+}
+
+.close {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: none;
+    border: none;
+    border-radius: var(--radius-full);
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: var(--transition-colors);
+}
+
+.close:hover {
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+}
+
+.close:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+.title {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text-primary);
+    margin: 0;
+    padding-right: var(--space-8);
+}
+
+.description {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-base);
+    margin: 0;
+}
+
+.footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+}
+
+@media (max-width: 640px) {
+    .footer {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes scaleIn {
+    from { opacity: 0; transform: translate(-50%, -48%) scale(0.96); }
+    to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
