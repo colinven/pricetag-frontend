@@ -35,6 +35,18 @@
     border-color: var(--color-info);
 }
 
+.accent {
+    background-color: var(--color-accent-subtle);
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+}
+
+.slate {
+    background-color: var(--color-slate-subtle);
+    color: var(--color-slate);
+    border-color: var(--color-slate);
+}
+
 .neutral {
     background-color: var(--color-surface);
     color: var(--color-text-muted);

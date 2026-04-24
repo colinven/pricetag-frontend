@@ -30,6 +30,8 @@
     --color-error-subtle:   #FEF2F2;  /* red-50 */
     --color-info:           #0891B2;  /* cyan-600 */
     --color-info-subtle:    #ECFEFF;  /* cyan-50 */
+    --color-slate:          #475569;  /* slate-600, calm/waiting states */
+    --color-slate-subtle:   #F1F5F9;  /* slate-100 */
 
 
     /* -------------------------

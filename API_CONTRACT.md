@@ -307,7 +307,7 @@ All require the auth_token cookie (sent automatically with credentialed requests
 { "quotes": [ /* QuoteSummary[] */ ] }
 ```
 
-#### GET /company/dashboard/quotes — Query params: page (0), size (20), sortBy ("createdAt"), direction ("desc")
+#### GET /company/dashboard/quotes — Query params: page (0), size (20), sortBy ("createdAt"), direction ("desc"), statuses (comma separated list of Quote.Status enum values in all uppercase)
 
 Returns Page<QuoteSummary> (Spring pageable envelope).
 

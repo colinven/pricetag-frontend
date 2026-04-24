@@ -1,4 +1,5 @@
 const formatRelativeDate = (iso) => {
+    if (iso == null) return "";
     const date = iso instanceof Date ? iso : new Date(iso);
     if (Number.isNaN(date.getTime())) return "";
     
@@ -29,4 +30,14 @@ const formatRelativeDate = (iso) => {
     
 }
 
-export { formatRelativeDate };
+const formatAbsoluteDateTime = (iso) => {
+    if (iso == null) return null;
+    const date = iso instanceof Date ? iso : new Date(iso);
+    if (Number.isNaN(date.getTime())) return null;
+    return new Intl.DateTimeFormat('en-US', {
+        month: 'short', day: 'numeric',
+        hour: 'numeric', minute: '2-digit',
+    }).format(date);
+}
+
+export { formatRelativeDate, formatAbsoluteDateTime };
