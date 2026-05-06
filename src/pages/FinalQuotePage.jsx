@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
+import { Check } from 'lucide-react';
 import Spinner from '../components/ui/Spinner';
 import Button from '../components/ui/Button';
 import NotFoundState from '../components/ui/NotFoundState';
 import ServerErrorState from '../components/ui/ServerErrorState';
 import StreetViewEmbed from '../components/ui/StreetViewEmbed';
+import ConfettiOverlay from '../components/ui/ConfettiOverlay';
 import { viewFinalizedQuote, acceptOrDeclineQuote } from '../api/quote';
 import { formatRelativeFuture, formatAbsoluteDate } from '../util/dateUtils';
 import { formatPropertyType } from '../util/propertyType';
@@ -20,6 +22,26 @@ export default function FinalQuotePage() {
             ? { data: null, loading: true, error: null }
             : { data: null, loading: false, error: { kind: 'invalid' } }
     );
+
+    const [justAccepted, setJustAccepted] = useState(false);
+
+    const handleMutationSuccess = (status) => {
+        setState((prev) => {
+            if (!prev.data) return prev;
+            const stamp = new Date().toISOString();
+            return {
+                ...prev,
+                data: {
+                    ...prev.data,
+                    status,
+                    ...(status === 'ACCEPTED' ? { acceptedAt: stamp } : { declinedAt: stamp }),
+                },
+            };
+        });
+        if (status === 'ACCEPTED') {
+            setJustAccepted(true);
+        }
+    };
 
     useEffect(() => {
         if (!token) return;
@@ -94,13 +116,11 @@ export default function FinalQuotePage() {
                         quote={state.data}
                         quoteId={quoteId}
                         token={token}
-                        onMutationSuccess={(status) => {
-                            // Wired in Task 7
-                            console.log('Mutation success:', status);
-                        }}
+                        onMutationSuccess={handleMutationSuccess}
                     />
                 )}
             </div>
+            <ConfettiOverlay fire={justAccepted} />
         </div>
     );
 }
@@ -143,10 +163,39 @@ function ActionRegion({ quoteId, token, quote, onMutationSuccess }) {
     const [phase, setPhase] = useState('idle');
     // 'idle' | 'decline-confirming' | 'submitting-accept' | 'submitting-decline'
 
-    if (quote.status === 'ACCEPTED' || quote.status === 'DECLINED') {
+    if (quote.status === 'ACCEPTED') {
         return (
-            <div className={styles.placeholderStrip}>
-                (post-action strip goes here — wired in Task 7)
+            <div className={styles.acceptedStrip}>
+                <div className={styles.stripHeader}>
+                    <Check size={18} className={styles.stripIcon} aria-hidden="true" />
+                    <span className={styles.stripTitle}>Quote accepted</span>
+                </div>
+                <p className={styles.stripBody}>
+                    {quote.companyName} will reach out soon to schedule.
+                </p>
+                {quote.acceptedAt && (
+                    <p className={styles.stripMeta}>
+                        Accepted on {formatAbsoluteDate(quote.acceptedAt)}
+                    </p>
+                )}
+            </div>
+        );
+    }
+
+    if (quote.status === 'DECLINED') {
+        return (
+            <div className={styles.declinedStrip}>
+                <div className={styles.stripHeader}>
+                    <span className={styles.stripTitle}>Quote declined</span>
+                </div>
+                <p className={styles.stripBody}>
+                    Thanks for considering {quote.companyName}.
+                </p>
+                {quote.declinedAt && (
+                    <p className={styles.stripMeta}>
+                        Declined on {formatAbsoluteDate(quote.declinedAt)}
+                    </p>
+                )}
             </div>
         );
     }
