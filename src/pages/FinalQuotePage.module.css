@@ -191,3 +191,23 @@
     color: var(--color-text-muted);
     margin: 0;
 }
+
+/* ── PATCH error strips ────────────────────────── */
+
+.errorStripTerminal {
+    background-color: var(--color-error-subtle);
+    border: 1px solid var(--color-error);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+}
+
+.errorStripRecoverable {
+    background-color: var(--color-error-subtle);
+    border: 1px solid var(--color-error);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    align-items: flex-start;
+}

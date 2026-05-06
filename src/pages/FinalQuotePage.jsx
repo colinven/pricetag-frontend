@@ -131,6 +131,25 @@ function classifyGetError(error) {
     return 'server';
 }
 
+function classifyMutationError(error) {
+    if (error.statusCode === 409) {
+        return {
+            phase: 'error-terminal',
+            copy: 'This quote was already responded to.',
+        };
+    }
+    if (error.statusCode === 410) {
+        return {
+            phase: 'error-terminal',
+            copy: 'This quote just expired and can no longer be accepted.',
+        };
+    }
+    return {
+        phase: 'error-recoverable',
+        copy: "Couldn't submit. Try again.",
+    };
+}
+
 function LetterCard({ quote, quoteId, token, onMutationSuccess }) {
     return (
         <article className={styles.card}>
@@ -162,6 +181,10 @@ function LetterCard({ quote, quoteId, token, onMutationSuccess }) {
 function ActionRegion({ quoteId, token, quote, onMutationSuccess }) {
     const [phase, setPhase] = useState('idle');
     // 'idle' | 'decline-confirming' | 'submitting-accept' | 'submitting-decline'
+    // | 'error-terminal' | 'error-recoverable'
+
+    const [lastAction, setLastAction] = useState(null);
+    const [errorCopy, setErrorCopy] = useState('');
 
     if (quote.status === 'ACCEPTED') {
         return (
@@ -201,17 +224,41 @@ function ActionRegion({ quoteId, token, quote, onMutationSuccess }) {
     }
 
     const submit = async (status) => {
+        setLastAction(status);
         setPhase(status === 'ACCEPTED' ? 'submitting-accept' : 'submitting-decline');
         try {
-            const response = await acceptOrDeclineQuote(quoteId, token, { status });
-            console.log('PATCH success:', response);
+            await acceptOrDeclineQuote(quoteId, token, { status });
             onMutationSuccess(status);
         } catch (error) {
             console.error('PATCH failed:', error);
-            // Error handling deferred to Task 8.
-            setPhase('idle');
+            const { phase: nextPhase, copy } = classifyMutationError(error);
+            setErrorCopy(copy);
+            setPhase(nextPhase);
         }
     };
+
+    if (phase === 'error-terminal') {
+        return (
+            <div className={styles.errorStripTerminal}>
+                <p className={styles.stripBody}>{errorCopy}</p>
+            </div>
+        );
+    }
+
+    if (phase === 'error-recoverable') {
+        return (
+            <div className={styles.errorStripRecoverable}>
+                <p className={styles.stripBody}>{errorCopy}</p>
+                <Button
+                    variant="primary"
+                    size="sm"
+                    onClick={() => submit(lastAction)}
+                >
+                    Try again
+                </Button>
+            </div>
+        );
+    }
 
     if (phase === 'decline-confirming') {
         return (
