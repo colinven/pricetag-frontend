@@ -3,8 +3,8 @@ import { Link, useSearchParams } from 'react-router-dom';
 import clsx from 'clsx';
 import Table from '../../components/ui/Table';
 import QuoteStatusBadge from '../../components/ui/QuoteStatusBadge';
-import Button from '../../components/ui/Button';
 import MobilePagination from '../../components/ui/MobilePagination';
+import SectionError from '../../components/ui/SectionError';
 import { formatRelativeDate } from '../../util/dateUtils';
 import { getAllQuotesPaginated } from '../../api/dashboard';
 import styles from './QuoteListPage.module.css';
@@ -125,7 +125,7 @@ export default function QuoteListPage() {
             />
 
             {loading && <QuoteListSkeleton />}
-            {error && <SectionError onRetry={refetch} />}
+            {error && <SectionError message="Couldn't load quotes." onRetry={refetch} />}
             {isEmpty && (
                 <QuoteEmptyState hasFilter={!!statusesParam} filter={statusesParam} />
             )}
@@ -255,11 +255,3 @@ function QuoteEmptyState({ hasFilter, filter }) {
     );
 }
 
-function SectionError({ onRetry }) {
-    return (
-        <div className={styles.sectionError}>
-            <span>Couldn't load quotes.</span>
-            <Button variant="secondary" size="sm" onClick={onRetry}>Retry</Button>
-        </div>
-    );
-}
