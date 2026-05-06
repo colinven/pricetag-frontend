@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import Table from '../../components/ui/Table';
 import QuoteStatusBadge from '../../components/ui/QuoteStatusBadge';
 import Button from '../../components/ui/Button';
+import MobilePagination from '../../components/ui/MobilePagination';
 import { formatRelativeDate } from '../../util/dateUtils';
 import { getAllQuotesPaginated } from '../../api/dashboard';
 import styles from './QuoteListPage.module.css';
@@ -163,6 +164,8 @@ export default function QuoteListPage() {
                             totalPages={data.page.totalPages}
                             totalItems={data.page.totalElements}
                             onPageChange={(newPage) => updateParams({ page: newPage })}
+                            itemLabel="quote"
+                            itemLabelPlural="quotes"
                         />
                     </div>
                 </>
@@ -212,38 +215,6 @@ function QuoteMobileCard({ quote }) {
                 <span>{formatRelativeDate(quote.createdAt)}</span>
             </div>
         </Link>
-    );
-}
-
-function MobilePagination({ page, totalPages, totalItems, onPageChange }) {
-    const canPrev = page > 1;
-    const canNext = page < totalPages;
-
-    return (
-        <div className={styles.mobilePagination}>
-            <button
-                type="button"
-                className={styles.mobilePageBtn}
-                disabled={!canPrev}
-                onClick={() => onPageChange(page - 1)}
-            >
-                ← Prev
-            </button>
-            <span className={styles.mobilePageMeta}>
-                Page {page} of {totalPages || 1}
-                {totalItems !== undefined && (
-                    <> · {totalItems.toLocaleString()} {totalItems === 1 ? 'quote' : 'quotes'}</>
-                )}
-            </span>
-            <button
-                type="button"
-                className={styles.mobilePageBtn}
-                disabled={!canNext}
-                onClick={() => onPageChange(page + 1)}
-            >
-                Next →
-            </button>
-        </div>
     );
 }
 
