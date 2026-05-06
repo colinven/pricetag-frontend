@@ -13,7 +13,9 @@ import styles from "./DashboardLayout.module.css";
  * doesn't prefix-match it first. Using an array makes that explicit.
  */
 const ROUTE_TITLES = [
+    ['/dashboard/quotes/',       'Quote Detail'],
     ['/dashboard/quotes',        'Quotes'],
+    ['/dashboard/customers/',    'Customer Detail'],
     ['/dashboard/customers',     'Customers'],
     ['/dashboard/analytics',     'Analytics'],
     ['/dashboard/notifications', 'Notifications'],
