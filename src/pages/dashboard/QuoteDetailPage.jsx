@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { DropdownMenu } from 'radix-ui';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
@@ -9,6 +9,7 @@ import Modal from '../../components/ui/Modal';
 import Toast from '../../components/ui/Toast/Toast';
 import QuoteStatusBadge from '../../components/ui/QuoteStatusBadge';
 import StreetViewEmbed from '../../components/ui/StreetViewEmbed';
+import NotFoundState from '../../components/ui/NotFoundState';
 import {
     getQuoteDetails,
     finalizeQuote,
@@ -124,7 +125,16 @@ export default function QuoteDetailPage() {
     return (
         <>
             {state.loading && <QuoteDetailSkeleton />}
-            {state.error?.kind === 'not-found' && <NotFoundState />}
+            {state.error?.kind === 'not-found' && (
+                <div className={styles.page}>
+                    <NotFoundState
+                        title="Quote not found"
+                        description="This quote may have been deleted or the link may be invalid."
+                        backHref="/dashboard/quotes"
+                        backLabel="Back to Quotes"
+                    />
+                </div>
+            )}
             {state.error?.kind === 'server' && <ServerErrorState onRetry={refetch} />}
             {state.data && (
                 <QuoteDetailContent
@@ -490,24 +500,6 @@ function QuoteDetailSkeleton() {
                     <div className={styles.skeletonCard} />
                     <div className={styles.skeletonCard} />
                 </div>
-            </div>
-        </div>
-    );
-}
-
-/* NotFoundState (404) */
-
-function NotFoundState() {
-    return (
-        <div className={styles.page}>
-            <div className={styles.fullPageState}>
-                <h1 className={styles.fullPageHeadline}>Quote not found</h1>
-                <p className={styles.fullPageSubline}>
-                    This quote may have been deleted or the link may be invalid.
-                </p>
-                <Button as={Link} to="/dashboard/quotes" variant="secondary">
-                    Back to Quotes
-                </Button>
             </div>
         </div>
     );
