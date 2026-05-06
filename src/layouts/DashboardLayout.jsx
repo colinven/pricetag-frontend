@@ -1,4 +1,5 @@
 import { Outlet, Navigate, useLocation } from "react-router-dom";
+import { useRef, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import Spinner from "../components/ui/Spinner";
 import Sidebar from "../components/layout/Sidebar";
@@ -28,6 +29,11 @@ function titleFor(pathname) {
 export default function DashboardLayout() {
     const { isLoading, isAuthenticated } = useAuth();
     const { pathname } = useLocation();
+    const mainRef = useRef(null);
+
+    useEffect(() => {
+        mainRef.current?.scrollTo(0,0);
+    }, [pathname]);
 
     if (isLoading) {
         return (
@@ -48,7 +54,7 @@ export default function DashboardLayout() {
             <Sidebar />
             <TopBar title={title} />
             <MobileTopBar title={title} />
-            <main className={styles.content}>
+            <main ref={mainRef} className={styles.content}>
                 <Outlet />
             </main>
             <BottomNav />
