@@ -10,6 +10,7 @@ import Toast from '../../components/ui/Toast/Toast';
 import QuoteStatusBadge from '../../components/ui/QuoteStatusBadge';
 import StreetViewEmbed from '../../components/ui/StreetViewEmbed';
 import NotFoundState from '../../components/ui/NotFoundState';
+import ServerErrorState from '../../components/ui/ServerErrorState';
 import {
     getQuoteDetails,
     finalizeQuote,
@@ -135,7 +136,11 @@ export default function QuoteDetailPage() {
                     />
                 </div>
             )}
-            {state.error?.kind === 'server' && <ServerErrorState onRetry={refetch} />}
+            {state.error?.kind === 'server' && (
+                <div className={styles.page}>
+                    <ServerErrorState onRetry={refetch} />
+                </div>
+            )}
             {state.data && (
                 <QuoteDetailContent
                     quote={state.data}
@@ -505,18 +510,3 @@ function QuoteDetailSkeleton() {
     );
 }
 
-/* ServerErrorState (5xx / network) */
-
-function ServerErrorState({ onRetry }) {
-    return (
-        <div className={styles.page}>
-            <div className={styles.fullPageState}>
-                <h1 className={styles.fullPageHeadline}>Something went wrong</h1>
-                <p className={styles.fullPageSubline}>
-                    We couldn't load this quote. Give it another try.
-                </p>
-                <Button variant="secondary" onClick={onRetry}>Retry</Button>
-            </div>
-        </div>
-    );
-}
