@@ -17,12 +17,8 @@ import {
     manuallySetQuoteStatus,
 } from '../../api/dashboard';
 import { formatRelativeDate, formatAbsoluteDateTime } from '../../util/dateUtils';
+import { PROPERTY_TYPE_LABELS } from '../../util/propertyType';
 import styles from './QuoteDetailPage.module.css';
-
-const PROPERTY_TYPE_LABELS = {
-    SINGLE_FAMILY: 'Single Family',
-    TOWNHOMES: 'Townhome',
-};
 
 // All four for label lookup in the modal description.
 const STATUS_OPTIONS = [

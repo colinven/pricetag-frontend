@@ -4,13 +4,9 @@ import { getCachedStreetView } from "../util/googleMapsUtils";
 import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
 import StreetViewEmbed from "../components/ui/StreetViewEmbed/StreetViewEmbed";
+import { formatPropertyType } from "../util/propertyType";
 import styles from "./QuoteResultsPage.module.css";
 import placeholderImage from "../assets/no-streetview.png"
-
-const displayNames = {
-        SINGLE_FAMILY: "Single Family",
-        TOWNHOMES: "Townhome"
-    }
 
 export default function QuoteResultsPage() {
 
@@ -73,7 +69,7 @@ export default function QuoteResultsPage() {
                                     <li><span>Stories</span><span>{data.stories}</span></li>
                                     <li><span>Year built</span><span>{data.year_built}</span></li>
                                     {data.garage && <li><span>Garage</span><span>{data.garage}-car</span></li>}
-                                    <li><span>Type</span><span>{displayNames[data.property_type]}</span></li>
+                                    <li><span>Type</span><span>{formatPropertyType(data.property_type) ?? data.property_type}</span></li>
                                 </ul>
                             </section>
                         </div>

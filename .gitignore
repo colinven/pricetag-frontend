@@ -1,6 +1,8 @@
 node_modules/
 dist/
 .env
+.superpowers/
+.claude/
 /context/
 /context/*
 CLAUDE.md

@@ -6,6 +6,7 @@ import Button from "../components/ui/Button";
 import FormField from "../components/ui/FormField";
 import Input from "../components/ui/Input";
 import { amendQuoteRequest } from "../api/quote";
+import { formatPropertyType } from "../util/propertyType";
 import styles from "./MoreInfoPage.module.css";
 
 export default function MoreInfoPage() {
@@ -41,8 +42,6 @@ export default function MoreInfoPage() {
         stories: "Number of Stories",
         garage: "Garage Size (number of cars)",
         property_type: "Property Type",
-        SINGLE_FAMILY: "Single family",
-        TOWNHOMES: "Townhomes"
     }
 
     const handleChange = (e) => {
@@ -124,7 +123,7 @@ export default function MoreInfoPage() {
                             {fields.map((field) => 
                             <div key={field.id} className={styles.summaryRow}>
                                 <span className={styles.summaryKey}>{displayNames[field.key]}</span>
-                                <span className={styles.summaryValue}>{displayNames[field.value] || field.value || "N/A"}</span>
+                                <span className={styles.summaryValue}>{formatPropertyType(field.value) || field.value || "N/A"}</span>
                             </div>)}
                         </div>
                     </div>
