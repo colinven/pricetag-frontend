@@ -49,4 +49,26 @@ const formatAbsoluteDate = (iso) => {
     }).format(date);
 }
 
-export { formatRelativeDate, formatAbsoluteDateTime, formatAbsoluteDate };
+const formatRelativeFuture = (iso) => {
+    if (iso == null) return null;
+    const date = iso instanceof Date ? iso : new Date(iso);
+    if (Number.isNaN(date.getTime())) return null;
+
+    const now = new Date();
+    const diffSec = Math.floor((date.getTime() - now.getTime()) / 1000);
+
+    if (diffSec <= 0) return null;
+    if (diffSec < 60) return 'in less than a minute';
+
+    const diffMin = Math.floor(diffSec / 60);
+    const diffHr  = Math.floor(diffSec / 3600);
+    const diffDay = Math.floor(diffSec / 86400);
+
+    if (diffMin < 60) return `in ${diffMin} minute${diffMin === 1 ? '' : 's'}`;
+    if (diffHr < 24)  return `in ${diffHr} hour${diffHr === 1 ? '' : 's'}`;
+    if (diffDay < 30) return `in ${diffDay} day${diffDay === 1 ? '' : 's'}`;
+
+    return null;
+}
+
+export { formatRelativeDate, formatAbsoluteDateTime, formatAbsoluteDate, formatRelativeFuture };
