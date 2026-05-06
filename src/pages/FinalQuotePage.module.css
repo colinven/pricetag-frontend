@@ -20,13 +20,112 @@
     padding: var(--space-20) var(--space-6);
 }
 
-/* Removed in Task 5 once the real letter renders. */
-.placeholder {
+/* ── Letter card ───────────────────────────────── */
+
+.card {
     background-color: var(--color-surface-raised);
-    border: 1px dashed var(--color-border-strong);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
-    padding: var(--space-8);
-    text-align: center;
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    box-shadow: var(--shadow-sm);
+}
+
+.cardHeader {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.companyName {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-bold);
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.companyContact {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
     font-family: var(--font-body);
+    font-size: var(--text-sm);
     color: var(--color-text-muted);
+}
+
+.companyContactLink {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: var(--transition-colors);
+}
+
+.companyContactLink:hover {
+    color: var(--color-accent);
+}
+
+.companyContactDivider {
+    color: var(--color-border-strong);
+}
+
+/* ── Greeting + lead ───────────────────────────── */
+
+.greetingBlock {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.greeting {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.lead {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text-primary);
+    margin: 0;
+    line-height: var(--leading-relaxed);
+}
+
+.streetView {
+    margin-top: var(--space-1);
+}
+
+/* ── Property meta + price ─────────────────────── */
+
+.propertyMeta {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin: 0;
+}
+
+.priceBlock {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding-top: var(--space-2);
+}
+
+.finalPrice {
+    font-family: var(--font-heading);
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-bold);
+    color: var(--color-text-primary);
+    margin: 0;
+    letter-spacing: var(--tracking-tight);
+}
+
+.priceCaption {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin: 0;
 }
