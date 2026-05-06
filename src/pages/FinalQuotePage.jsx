@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import Spinner from '../components/ui/Spinner';
+import Button from '../components/ui/Button';
 import NotFoundState from '../components/ui/NotFoundState';
 import ServerErrorState from '../components/ui/ServerErrorState';
 import StreetViewEmbed from '../components/ui/StreetViewEmbed';
-import { viewFinalizedQuote } from '../api/quote';
+import { viewFinalizedQuote, acceptOrDeclineQuote } from '../api/quote';
 import { formatRelativeFuture, formatAbsoluteDate } from '../util/dateUtils';
 import { formatPropertyType } from '../util/propertyType';
 import styles from './FinalQuotePage.module.css';
@@ -88,7 +89,17 @@ export default function FinalQuotePage() {
                     <ServerErrorState onRetry={refetch} />
                 )}
 
-                {state.data && <LetterCard quote={state.data} />}
+                {state.data && (
+                    <LetterCard
+                        quote={state.data}
+                        quoteId={quoteId}
+                        token={token}
+                        onMutationSuccess={(status) => {
+                            // Wired in Task 7
+                            console.log('Mutation success:', status);
+                        }}
+                    />
+                )}
             </div>
         </div>
     );
@@ -100,7 +111,7 @@ function classifyGetError(error) {
     return 'server';
 }
 
-function LetterCard({ quote }) {
+function LetterCard({ quote, quoteId, token, onMutationSuccess }) {
     return (
         <article className={styles.card}>
             <LetterHeader
@@ -118,7 +129,83 @@ function LetterCard({ quote }) {
             />
             <PropertyMetaLine quote={quote} />
             <PriceBlock quote={quote} showExpiry={quote.status === 'REVIEWED'} />
+            <ActionRegion
+                quoteId={quoteId}
+                token={token}
+                quote={quote}
+                onMutationSuccess={onMutationSuccess}
+            />
         </article>
+    );
+}
+
+function ActionRegion({ quoteId, token, quote, onMutationSuccess }) {
+    const [phase, setPhase] = useState('idle');
+    // 'idle' | 'decline-confirming' | 'submitting-accept' | 'submitting-decline'
+
+    if (quote.status === 'ACCEPTED' || quote.status === 'DECLINED') {
+        return (
+            <div className={styles.placeholderStrip}>
+                (post-action strip goes here — wired in Task 7)
+            </div>
+        );
+    }
+
+    const submit = async (status) => {
+        setPhase(status === 'ACCEPTED' ? 'submitting-accept' : 'submitting-decline');
+        try {
+            const response = await acceptOrDeclineQuote(quoteId, token, { status });
+            console.log('PATCH success:', response);
+            onMutationSuccess(status);
+        } catch (error) {
+            console.error('PATCH failed:', error);
+            // Error handling deferred to Task 8.
+            setPhase('idle');
+        }
+    };
+
+    if (phase === 'decline-confirming') {
+        return (
+            <div className={styles.actionRow}>
+                <Button
+                    variant="secondary"
+                    fullWidth
+                    onClick={() => setPhase('idle')}
+                >
+                    Cancel
+                </Button>
+                <Button
+                    variant="primary"
+                    fullWidth
+                    onClick={() => submit('DECLINED')}
+                >
+                    Yes, decline this quote
+                </Button>
+            </div>
+        );
+    }
+
+    const submitting = phase === 'submitting-accept' || phase === 'submitting-decline';
+    return (
+        <div className={styles.actionRow}>
+            <Button
+                variant="primary"
+                fullWidth
+                loading={phase === 'submitting-accept'}
+                disabled={submitting}
+                onClick={() => submit('ACCEPTED')}
+            >
+                Accept
+            </Button>
+            <Button
+                variant="secondary"
+                fullWidth
+                disabled={submitting}
+                onClick={() => setPhase('decline-confirming')}
+            >
+                Decline
+            </Button>
+        </div>
     );
 }
 
